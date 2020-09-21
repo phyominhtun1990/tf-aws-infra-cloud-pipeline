@@ -31,7 +31,6 @@ module "ec2_cluster" {
   vpc_security_group_ids = [module.web_server_sg.this_security_group_id]
   subnet_id              = module.vpc.public_subnets[0]
 
-resource "null_resource" "cluster" {
 
  provisioner "file" {
     source      = "src/index.html"
@@ -44,8 +43,12 @@ resource "null_resource" "cluster" {
       "systemctl start httpd",
     ]
   }
-}
-
+connection {
+    type     = "ssh"
+    user     = "ec2-user"
+    password = ""
+    private_key = var.private_key
+  }
   tags = {
     Terraform   = "true"
     Environment = "dev"

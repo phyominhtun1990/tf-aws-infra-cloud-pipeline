@@ -4,7 +4,8 @@ variable "vpc" {
     cidr           = string
     azs            = list(string)
     private_subnet = list(string)
-  public_subnet = list(string) })
+  public_subnet = list(string)
+  private_key = string })
   description = "Collection of VPC creation variables"
 }
 
