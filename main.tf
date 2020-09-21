@@ -35,6 +35,12 @@ module "ec2_cluster" {
  provisioner "file" {
     source      = "src/index.html"
     destination = "/var/www/html/"
+
+    connection {
+    type     = "ssh"
+    user     = "ec2-user"
+    private_key = var.ssh_private_key
+  }
   }
 
   provisioner "remote-exec" {
@@ -42,13 +48,14 @@ module "ec2_cluster" {
       "yum install httpd -y",
       "systemctl start httpd",
     ]
-  }
-connection {
+
+    connection {
     type     = "ssh"
     user     = "ec2-user"
-    password = ""
-    private_key = var.private_key
+    private_key = var.ssh_private_key
   }
+  }
+
   tags = {
     Terraform   = "true"
     Environment = "dev"

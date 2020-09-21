@@ -22,9 +22,13 @@ variable "ec2" {
     ami    = string
     i_type = string
     k_name = string
-  instance_count = number
-  private_key = string  })
+  instance_count = number  })
   description = "Collection of Ec2 creation variables"
+}
+
+variable "ssh_private_key" {
+  private_key = string
+  description = "SSH Pem Key"
 }
 
 variable "sg" {
