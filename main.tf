@@ -36,12 +36,12 @@ module "ec2_cluster" {
     Environment = "dev"
   }
 
-  provisioner "file" = {
-    source      = "./src/index.html"
+  provisioner "file" {
+    source      = "src/index.html"
     destination = "/var/www/html/"
   }
 
-  provisioner "remote-exec" = {
+  provisioner "remote-exec" {
     inline = [
       "yum install httpd -y",
       "systemctl start httpd",
