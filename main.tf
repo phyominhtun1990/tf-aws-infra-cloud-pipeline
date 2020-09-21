@@ -30,13 +30,7 @@ module "ec2_cluster" {
   key_name               = var.ec2.k_name
   vpc_security_group_ids = [module.web_server_sg.this_security_group_id]
   subnet_id              = module.vpc.public_subnets[0]
-
-  tags = {
-    Terraform   = "true"
-    Environment = "dev"
-  }
-
-  provisioner "file" {
+provisioner "file" {
     source      = "src/index.html"
     destination = "/var/www/html/"
   }
@@ -46,6 +40,10 @@ module "ec2_cluster" {
       "yum install httpd -y",
       "systemctl start httpd",
     ]
+  }
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
   }
 }
 
