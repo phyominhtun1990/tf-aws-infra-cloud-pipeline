@@ -47,7 +47,7 @@ module "web_server_sg" {
   ingress_cidr_blocks = var.sg.ingress
 }
 
-module "ssh_sg" {
+module "vote_service_sg" {
   source = "terraform-aws-modules/security-group/aws"
   name = var.ssh_sg
   description = "Security group for SSH For Remote Execution"
