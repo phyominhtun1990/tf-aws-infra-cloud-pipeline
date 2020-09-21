@@ -27,7 +27,7 @@ variable "ec2" {
 }
 
 variable "ssh_private_key" {
-  private_key = string
+  type = string
   description = "SSH Pem Key"
 }
 
