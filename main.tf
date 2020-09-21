@@ -47,8 +47,10 @@ module "web_server_sg" {
   ingress_cidr_blocks = var.sg.ingress
 }
 
-module "vote_service_sg" {
-  source = "terraform-aws-modules/security-group/aws"
+module "ssh_security_group" {
+  source  = "terraform-aws-modules/security-group/aws//modules/ssh"
+  version = "~> 3.0"
+
   name = var.ssh_sg
   description = "Security group for SSH For Remote Execution"
   vpc_id      = module.vpc.vpc_id
