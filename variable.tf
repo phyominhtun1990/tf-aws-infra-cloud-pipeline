@@ -4,8 +4,7 @@ variable "vpc" {
     cidr           = string
     azs            = list(string)
     private_subnet = list(string)
-  public_subnet = list(string)
-  private_key = string })
+  public_subnet = list(string)})
   description = "Collection of VPC creation variables"
 }
 
@@ -23,7 +22,8 @@ variable "ec2" {
     ami    = string
     i_type = string
     k_name = string
-  instance_count = number })
+  instance_count = number
+  private_key = string  })
   description = "Collection of Ec2 creation variables"
 }
 
