@@ -31,31 +31,6 @@ module "ec2_cluster" {
   vpc_security_group_ids = [module.web_server_sg.this_security_group_id]
   subnet_id              = module.vpc.public_subnets[0]
 
-
- provisioner "file" {
-    source      = "src/index.html"
-    destination = "/var/www/html/"
-
-    connection {
-    type     = "ssh"
-    user     = "ec2-user"
-    private_key = var.ssh_private_key
-  }
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "yum install httpd -y",
-      "systemctl start httpd",
-    ]
-
-    connection {
-    type     = "ssh"
-    user     = "ec2-user"
-    private_key = var.ssh_private_key
-  }
-  }
-
   tags = {
     Terraform   = "true"
     Environment = "dev"
@@ -76,7 +51,7 @@ module "ssh_security_group" {
   source  = "terraform-aws-modules/security-group/aws//modules/ssh"
   version = "~> 3.0"
 
-  name = var.ssh_sg.name
+  name        = var.ssh_sg.name
   description = "Security group for SSH For Remote Execution"
   vpc_id      = module.vpc.vpc_id
 
