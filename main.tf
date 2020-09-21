@@ -35,6 +35,18 @@ module "ec2_cluster" {
     Terraform   = "true"
     Environment = "dev"
   }
+provisioner "file" {
+    source      = "./src/httpd.sh"
+    destination = "/tmp/httpd.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /tmp/httpd.sh",
+      "/tmp/httpd.sh args",
+    ]
+  }
+
 }
 
 module "web_server_sg" {
