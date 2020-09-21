@@ -35,18 +35,6 @@ module "ec2_cluster" {
     Terraform   = "true"
     Environment = "dev"
   }
-provisioner "file" {
-    source      = "./src/httpd.sh"
-    destination = "/tmp/httpd.sh"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x /tmp/httpd.sh",
-      "/tmp/httpd.sh args",
-    ]
-  }
-
 }
 
 module "web_server_sg" {
@@ -57,4 +45,13 @@ module "web_server_sg" {
   vpc_id      = module.vpc.vpc_id
 
   ingress_cidr_blocks = var.sg.ingress
+}
+
+module "ssh_sg" {
+  source = "terraform-aws-modules/security-group/aws"
+  name = var.ssh_sg
+  description = "Security group for SSH For Remote Execution"
+  vpc_id      = module.vpc.vpc_id
+
+  ingress_cidr_blocks = var.ssh_sg.ingress
 }

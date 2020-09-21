@@ -33,3 +33,10 @@ variable "sg" {
   description = "Collection of Security Group creation variables"
 }
 
+variable "ssh_sg" {
+  type = object({
+    name = string
+  ingress = list(string) })
+  description = "Collection of Security Group creation variables"
+}
+
